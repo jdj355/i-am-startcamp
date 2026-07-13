@@ -172,6 +172,11 @@
             box-shadow: 0 10px 40px -10px rgba(59, 130, 246, 0.18);
         }
 
+        /* Decorative dark vignette overlays (behind section text) — neutralize in light mode */
+        html.light .about-fade,
+        html.light [class*="from-slate-950"],
+        html.light [class*="from-slate-900"] { opacity: 0 !important; }
+
         /* Theme toggle button */
         #theme-toggle {
             width: 40px;
@@ -331,7 +336,7 @@
 
     <!-- PROFILE SECTION -->
     <section id="about" class="py-32 bg-slate-900/40 border-t border-slate-900 relative">
-        <div class="absolute inset-0 bg-gradient-to-b from-slate-950 to-slate-900/10 pointer-events-none"></div>
+        <div class="about-fade absolute inset-0 bg-gradient-to-b from-slate-950 to-slate-900/10 pointer-events-none"></div>
         <div class="max-w-6xl mx-auto px-6 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
                 
