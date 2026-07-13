@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>전동재 | DONGJAE - 100% Consistent Backend Developer</title>
+    <!-- Apply saved theme before paint to avoid flash -->
+    <script>
+        (function () {
+            var saved = localStorage.getItem('dongjae-theme');
+            if (saved === 'light') {
+                document.documentElement.classList.add('light');
+            }
+        })();
+    </script>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons for Beautiful Visual Decor -->
@@ -77,6 +86,70 @@
             0% { height: 4px; }
             100% { height: 28px; }
         }
+
+        /* ============ SCROLL REVEAL ============ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: opacity, transform;
+        }
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1; transform: none; transition: none; }
+        }
+
+        /* ============ LIGHT MODE OVERRIDES ============ */
+        html.light body {
+            background-color: #f7f8fa;
+            color: #1f2937;
+        }
+        html.light [class*="bg-slate-950"] { background-color: #ffffff !important; }
+        html.light [class*="bg-slate-900"] { background-color: #f1f3f6 !important; }
+        html.light [class*="bg-slate-850"] { background-color: #eceff3 !important; }
+        html.light [class*="bg-slate-800"] { background-color: #e6e9ee !important; }
+        html.light [class*="border-slate"] { border-color: #dde1e7 !important; }
+        html.light [class*="text-white"] { color: #14181f !important; }
+        html.light [class*="text-zinc-200"],
+        html.light [class*="text-zinc-300"] { color: #4b5563 !important; }
+        html.light [class*="text-zinc-400"] { color: #6b7280 !important; }
+        html.light [class*="text-zinc-500"],
+        html.light [class*="text-zinc-600"] { color: #94a3b8 !important; }
+        html.light ::-webkit-scrollbar-track { background: #eef1f5; }
+        html.light .premium-glow:hover {
+            box-shadow: 0 10px 40px -10px rgba(59, 130, 246, 0.18);
+        }
+        /* Keep white CTA button legible in light mode */
+        html.light a[href="#about"].bg-white,
+        html.light button.bg-white {
+            background-color: #14181f !important;
+            color: #ffffff !important;
+        }
+        html.light #btn-play.bg-white {
+            background-color: #14181f !important;
+            color: #ffffff !important;
+        }
+
+        /* Theme toggle button */
+        #theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        #theme-toggle:hover {
+            transform: rotate(15deg);
+        }
+        #icon-moon { display: inline-block; }
+        #icon-sun { display: none; }
+        html.light #icon-moon { display: none; }
+        html.light #icon-sun { display: inline-block; }
     </style>
 </head>
 <body class="text-zinc-200 selection:bg-electric-500/30 selection:text-white overflow-x-hidden">
@@ -97,10 +170,16 @@
                 <a href="#contact" class="hover:text-electric-400 transition-colors duration-200">CONTACT</a>
             </nav>
 
-            <div class="md:hidden">
-                <button id="menu-toggle" class="p-2 text-zinc-300 hover:text-white focus:outline-none" aria-label="메뉴 토글">
-                    <i class="fa-solid fa-bars-staggered text-xl"></i>
+            <div class="flex items-center space-x-2">
+                <button id="theme-toggle" class="text-zinc-300 hover:text-electric-400" aria-label="다크/라이트 모드 전환">
+                    <i id="icon-moon" class="fa-solid fa-moon text-lg"></i>
+                    <i id="icon-sun" class="fa-solid fa-sun text-lg"></i>
                 </button>
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="p-2 text-zinc-300 hover:text-white focus:outline-none" aria-label="메뉴 토글">
+                        <i class="fa-solid fa-bars-staggered text-xl"></i>
+                    </button>
+                </div>
             </div>
         </div>
         
@@ -218,7 +297,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
                 
                 <!-- Profile Image / Interactive Tech Bio Visual Panel (Large Scale) -->
-                <div class="lg:col-span-5 relative">
+                <div class="lg:col-span-5 relative reveal">
                     <div class="bg-slate-900 border border-slate-700 rounded-3xl p-8 space-y-8 shadow-2xl relative overflow-hidden group hover:border-electric-500/50 transition-all duration-300">
                         <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-electric-600/10 rounded-full filter blur-xl"></div>
                         
@@ -264,7 +343,7 @@
                 </div>
 
                 <!-- Bio Description Details -->
-                <div class="lg:col-span-7 space-y-8 text-left break-keep">
+                <div class="lg:col-span-7 space-y-8 text-left break-keep reveal" style="transition-delay: 0.15s">
                     <span class="text-xs tracking-widest font-extrabold text-electric-400 uppercase bg-slate-800 border border-slate-700/60 px-4 py-1.5 rounded-full">WHO IS DONGJAE JEON</span>
                     <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
                         거창한 선언보다<br><span class="inline-block">매일 한 줄의 성실함을</span> 선택합니다.
@@ -300,7 +379,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Strength 1 -->
-                <div class="bg-slate-900 rounded-2xl p-8 border border-slate-800 transition-all duration-300 premium-glow break-keep">
+                <div class="reveal bg-slate-900 rounded-2xl p-8 border border-slate-800 transition-all duration-300 premium-glow break-keep" style="transition-delay: 0.0s">
                     <div class="w-12 h-12 rounded-xl bg-slate-850 flex items-center justify-center text-electric-400 mb-6 border border-slate-700/50">
                         <i class="fa-solid fa-bug-slash text-xl"></i>
                     </div>
@@ -311,7 +390,7 @@
                 </div>
 
                 <!-- Strength 2 -->
-                <div class="bg-slate-900 rounded-2xl p-8 border border-slate-800 transition-all duration-300 premium-glow break-keep">
+                <div class="reveal bg-slate-900 rounded-2xl p-8 border border-slate-800 transition-all duration-300 premium-glow break-keep" style="transition-delay: 0.08s">
                     <div class="w-12 h-12 rounded-xl bg-slate-850 flex items-center justify-center text-electric-400 mb-6 border border-slate-700/50">
                         <i class="fa-solid fa-rss text-xl"></i>
                     </div>
@@ -322,7 +401,7 @@
                 </div>
 
                 <!-- Strength 3 -->
-                <div class="bg-slate-900 rounded-2xl p-8 border border-slate-800 transition-all duration-300 premium-glow break-keep">
+                <div class="reveal bg-slate-900 rounded-2xl p-8 border border-slate-800 transition-all duration-300 premium-glow break-keep" style="transition-delay: 0.16s">
                     <div class="w-12 h-12 rounded-xl bg-slate-850 flex items-center justify-center text-electric-400 mb-6 border border-slate-700/50">
                         <i class="fa-solid fa-bullseye text-xl"></i>
                     </div>
@@ -333,7 +412,7 @@
                 </div>
 
                 <!-- Strength 4 -->
-                <div class="bg-slate-900 rounded-2xl p-8 border border-slate-800 transition-all duration-300 premium-glow break-keep">
+                <div class="reveal bg-slate-900 rounded-2xl p-8 border border-slate-800 transition-all duration-300 premium-glow break-keep" style="transition-delay: 0.24s">
                     <div class="w-12 h-12 rounded-xl bg-slate-850 flex items-center justify-center text-electric-400 mb-6 border border-slate-700/50">
                         <i class="fa-solid fa-calendar-check text-xl"></i>
                     </div>
@@ -344,7 +423,7 @@
                 </div>
 
                 <!-- Strength 5 -->
-                <div class="bg-slate-900 rounded-2xl p-8 border border-slate-800 transition-all duration-300 premium-glow lg:col-span-1 break-keep">
+                <div class="reveal bg-slate-900 rounded-2xl p-8 border border-slate-800 transition-all duration-300 premium-glow lg:col-span-1 break-keep" style="transition-delay: 0.32s">
                     <div class="w-12 h-12 rounded-xl bg-slate-850 flex items-center justify-center text-electric-400 mb-6 border border-slate-700/50">
                         <i class="fa-solid fa-scale-balanced text-xl"></i>
                     </div>
@@ -370,7 +449,7 @@
 
             <div class="space-y-12 max-w-4xl mx-auto">
                 <!-- Episode 1: 블로그 & 기자단 -->
-                <div class="flex flex-col lg:flex-row gap-10 bg-slate-900 border border-slate-800 p-8 sm:p-10 rounded-2xl items-center hover:border-slate-700 transition-all duration-300">
+                <div class="reveal flex flex-col lg:flex-row gap-10 bg-slate-900 border border-slate-800 p-8 sm:p-10 rounded-2xl items-center hover:border-slate-700 transition-all duration-300" style="transition-delay: 0.0s">
                     <div class="lg:w-1/3 text-center">
                         <div class="w-24 h-24 bg-slate-950 text-electric-400 rounded-full flex items-center justify-center mx-auto mb-5 border border-slate-800 shadow-inner">
                             <i class="fa-solid fa-pen-nib text-3xl animate-bounce"></i>
@@ -392,7 +471,7 @@
                 </div>
 
                 <!-- Episode 2: 4년 헬스 & 벤치프레스 120kg -->
-                <div class="flex flex-col lg:flex-row gap-10 bg-slate-900 border border-slate-800 p-8 sm:p-10 rounded-2xl items-center hover:border-slate-700 transition-all duration-300">
+                <div class="reveal flex flex-col lg:flex-row gap-10 bg-slate-900 border border-slate-800 p-8 sm:p-10 rounded-2xl items-center hover:border-slate-700 transition-all duration-300" style="transition-delay: 0.1s">
                     <div class="lg:w-1/3 text-center">
                         <div class="w-24 h-24 bg-slate-950 text-electric-400 rounded-full flex items-center justify-center mx-auto mb-5 border border-slate-800 shadow-inner">
                             <i class="fa-solid fa-dumbbell text-3xl"></i>
@@ -414,7 +493,7 @@
                 </div>
 
                 <!-- Episode 3: 어려운 코드 극복기 -->
-                <div class="flex flex-col lg:flex-row gap-10 bg-slate-900 border border-slate-800 p-8 sm:p-10 rounded-2xl items-center hover:border-slate-700 transition-all duration-300">
+                <div class="reveal flex flex-col lg:flex-row gap-10 bg-slate-900 border border-slate-800 p-8 sm:p-10 rounded-2xl items-center hover:border-slate-700 transition-all duration-300" style="transition-delay: 0.2s">
                     <div class="lg:w-1/3 text-center">
                         <div class="w-24 h-24 bg-slate-950 text-electric-400 rounded-full flex items-center justify-center mx-auto mb-5 border border-slate-800 shadow-inner">
                             <i class="fa-solid fa-network-wired text-3xl"></i>
@@ -451,7 +530,7 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
                 <!-- Massive Responsive Audio Player (Figma Prototype level styling) -->
-                <div class="lg:col-span-5 bg-slate-900 text-white rounded-2xl p-8 sm:p-10 flex flex-col justify-between shadow-2xl relative overflow-hidden border border-slate-800">
+                <div class="reveal lg:col-span-5 bg-slate-900 text-white rounded-2xl p-8 sm:p-10 flex flex-col justify-between shadow-2xl relative overflow-hidden border border-slate-800" style="transition-delay: 0.0s">
                     <div class="absolute top-0 right-0 w-40 h-40 bg-electric-500/10 rounded-full filter blur-3xl pointer-events-none"></div>
                     
                     <div class="flex justify-between items-center z-10 mb-8">
@@ -499,7 +578,7 @@
                 </div>
 
                 <!-- Playlist Track Selection Cards (Enhanced Text Readability with break-keep) -->
-                <div class="lg:col-span-7 space-y-4 flex flex-col justify-between break-keep">
+                <div class="reveal lg:col-span-7 space-y-4 flex flex-col justify-between break-keep" style="transition-delay: 0.1s">
                     
                     <!-- Track 1: Gongwon - Firework (Set as Top Favorite / My Pick) -->
                     <div id="default-track-card" onclick="selectTrack('공원 (Gongwon)', '불꽃놀이', '축제처럼 터져나가는 경쾌한 질감 뒤로, 한 땀 한 땀 디테일하게 편곡된 악기 소리들의 정밀함이 백엔드 유효성 설계를 떠올리게 하는 저의 최애곡입니다.', '3:22')" class="track-card bg-slate-900 hover:bg-slate-850 border border-slate-800/80 p-5 rounded-xl flex items-center justify-between cursor-pointer transition-all hover:scale-[1.01] active:scale-[0.99]">
@@ -558,7 +637,7 @@
     <section id="contact" class="py-32 bg-slate-950 border-t border-slate-900 text-white relative overflow-hidden">
         <div class="absolute bottom-[-15%] left-1/2 -translate-x-1/2 w-[70%] h-[50%] rounded-full bg-electric-700/10 filter blur-[150px] pointer-events-none"></div>
         
-        <div class="max-w-4xl mx-auto px-6 relative z-10 text-center space-y-8 break-keep">
+        <div class="reveal max-w-4xl mx-auto px-6 relative z-10 text-center space-y-8 break-keep" style="transition-delay: 0.0s">
             <span class="text-electric-400 font-bold text-xs uppercase tracking-widest bg-slate-900 border border-slate-800 px-4 py-1.5 rounded-full">LET'S BUILD TOGETHER</span>
             <h2 class="text-4xl sm:text-5xl font-black tracking-tight leading-tight">
                 준비된 동료 전동재와<br>
@@ -771,6 +850,28 @@
                 playerArtist.textContent = `${activeTrack.artist} - ${activeTrack.desc}`;
             }
         }
+
+        // ============ DARK / LIGHT THEME TOGGLE ============
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlEl = document.documentElement;
+
+        themeToggle.addEventListener('click', () => {
+            const isLight = htmlEl.classList.toggle('light');
+            localStorage.setItem('dongjae-theme', isLight ? 'light' : 'dark');
+        });
+
+        // ============ SCROLL REVEAL ANIMATION ============
+        const revealEls = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+        revealEls.forEach((el) => revealObserver.observe(el));
     </script>
 </body>
 </html>
