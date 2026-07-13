@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전동재 | DONGJAE - 100% Consistent Backend Developer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons for Beautiful Visual Decor -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Pretendard Variable Premium Font -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            950: '#06080f', // Deep rich navy black instead of raw lifeless black
+                            900: '#0d111d', // Modern deep dark surface card
+                            800: '#161d2f', // Accent elements container
+                            700: '#232d45'  // High quality premium borders
+                        },
+                        electric: {
+                            400: '#60a5fa', // Glowing neon blue light
+                            500: '#3b82f6', // Main accent blue
+                            600: '#1d4ed8', // Darker interactive blue
+                            700: '#1e3a8a'  // Subtle glow base
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: "Pretendard Variable", Pretendard, sans-serif;
+            background-color: #06080f;
+        }
+        /* Custom dynamic scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #06080f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #232d45;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6;
+        }
+        /* Dynamic premium shadow for hover effects */
+        .premium-glow:hover {
+            box-shadow: 0 10px 40px -10px rgba(59, 130, 246, 0.4);
+            border-color: rgba(59, 130, 246, 0.4);
+            transform: translateY(-4px);
+        }
+        /* Audio visualizer bar animations */
+        .bar {
+            width: 4px;
+            height: 14px;
+            background-color: #3b82f6;
+            animation: bounce 0.8s ease-in-out infinite alternate;
+        }
+        .bar:nth-child(2) { animation-delay: 0.15s; }
+        .bar:nth-child(3) { animation-delay: 0.35s; }
+        .bar:nth-child(4) { animation-delay: 0.1s; }
+        .bar:nth-child(5) { animation-delay: 0.25s; }
+        @keyframes bounce {
+            0% { height: 4px; }
+            100% { height: 28px; }
+        }
+    </style>
+</head>
+<body class="text-zinc-200 selection:bg-electric-500/30 selection:text-white overflow-x-hidden">
+
+    <!-- HEADER & NAVIGATION -->
+    <header class="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-lg border-b border-white/5 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="text-base font-extrabold tracking-widest text-white flex items-center space-x-3 group">
+                <span class="w-3.5 h-3.5 rounded-full bg-electric-500 group-hover:scale-125 transition-transform duration-300"></span>
+                <span class="font-mono">DONGJAE.PORTFOLIO</span>
+            </a>
+            
+            <nav class="hidden md:flex items-center space-x-10 text-xs font-semibold tracking-wider text-zinc-300">
+                <a href="#about" class="hover:text-electric-400 transition-colors duration-200">PROFILE</a>
+                <a href="#strengths" class="hover:text-electric-400 transition-colors duration-200">STRENGTHS</a>
+                <a href="#episodes" class="hover:text-electric-400 transition-colors duration-200">EPISODES</a>
+                <a href="#tastes" class="hover:text-electric-400 transition-colors duration-200">TASTES</a>
+                <a href="#contact" class="hover:text-electric-400 transition-colors duration-200">CONTACT</a>
+            </nav>
+
+            <div class="md:hidden">
+                <button id="menu-toggle" class="p-2 text-zinc-300 hover:text-white focus:outline-none" aria-label="메뉴 토글">
+                    <i class="fa-solid fa-bars-staggered text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-950/95 border-b border-white/10 px-6 py-6 space-y-4 shadow-2xl">
+            <a href="#about" class="block text-sm text-zinc-200 hover:text-white font-medium">PROFILE</a>
+            <a href="#strengths" class="block text-sm text-zinc-200 hover:text-white font-medium">STRENGTHS</a>
+            <a href="#episodes" class="block text-sm text-zinc-200 hover:text-white font-medium">EPISODES</a>
+            <a href="#tastes" class="block text-sm text-zinc-200 hover:text-white font-medium">TASTES</a>
+            <a href="#contact" class="block text-sm text-zinc-200 hover:text-white font-medium">CONTACT</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-slate-950 text-white min-h-[95vh] flex items-center overflow-hidden py-24">
+        <!-- Ambient Color Radial Glow Layers (Prevents gloomy pure black and adds Figma-styled depth) -->
+        <div class="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-electric-700/10 filter blur-[150px] pointer-events-none"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-electric-500/10 filter blur-[150px] pointer-events-none"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#1b253b_1px,transparent_1px),linear-gradient(to_bottom,#1b253b_1px,transparent_1px)] bg-[size:5rem_5rem] opacity-[0.05] pointer-events-none"></div>
+        
+        <div class="max-w-6xl mx-auto px-6 relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            
+            <!-- Left Info Panel with rigorous word wrap prevention -->
+            <div class="lg:col-span-7 space-y-8 text-left">
+                <div class="inline-flex items-center space-x-3 bg-slate-900 border border-slate-700/60 rounded-full px-5 py-2 text-xs sm:text-sm font-bold tracking-wider text-electric-400">
+                    <span class="w-2.5 h-2.5 rounded-full bg-electric-400 animate-pulse"></span>
+                    <span>SSAFY 16기 교육생 · BACKEND DEVELOPER</span>
+                </div>
+                
+                <!-- Fixed title from image_256947.png using break-keep and inline-block to prevent single letter orphans -->
+                <div class="space-y-4">
+                    <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-[1.12] text-white break-keep">
+                        전동재<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-100 to-electric-400">꾸준함이 곧 실력</span>이 <span class="inline-block">되는 사람</span>
+                    </h1>
+                </div>
+                
+                <p class="text-zinc-300 text-lg sm:text-xl max-w-xl leading-relaxed font-normal tracking-tight break-keep">
+                    기분에 휩쓸린 반짝이는 재능보다, 매일 같은 자리를 묵묵하게 지켜내는 정직한 끈기의 무게를 믿습니다. 
+                    스스로에게 약속한 일상의 일관성이 모여 어떤 에러와 버그 앞에서도 흔들리지 않는 백엔드 개발자로서의 단단한 기본기가 됩니다.
+                </p>
+                
+                <div class="pt-4 flex flex-wrap gap-4">
+                    <a href="#about" class="px-8 py-4 bg-white text-slate-950 font-extrabold text-sm rounded-xl hover:bg-zinc-200 transition-all duration-300 transform hover:-translate-y-0.5 shadow-xl shadow-white/5">
+                        포트폴리오 자세히 보기
+                    </a>
+                    <a href="#contact" class="px-8 py-4 bg-slate-900 text-zinc-200 border border-slate-700/60 font-semibold text-sm rounded-xl hover:bg-slate-800 hover:text-white hover:border-slate-600 transition-all duration-300">
+                        소통 제안하기
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Massive Routine Dashboard (Highly visible visual asset) -->
+            <div class="lg:col-span-5 flex justify-center w-full">
+                <div class="relative w-full max-w-[460px] rounded-2xl bg-slate-900/60 backdrop-blur-md border border-slate-700/50 p-8 flex flex-col justify-between shadow-2xl transition-all duration-300 hover:border-electric-500/40">
+                    <!-- Dashboard Top info -->
+                    <div class="flex justify-between items-center mb-10">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                        </div>
+                        <span class="text-[11px] text-zinc-400 font-mono tracking-wider">SYSTEM_LOG_v1.16</span>
+                    </div>
+                    
+                    <!-- Massive Visual Stats Grid -->
+                    <div class="space-y-6">
+                        <!-- Stat 1 -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm break-keep">
+                                <span class="text-zinc-300 font-bold">2024~ 현재 개발 블로그 연재</span>
+                                <span class="text-electric-400 font-bold font-mono">100% (Active)</span>
+                            </div>
+                            <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-gradient-to-r from-electric-600 to-electric-400 h-full w-full rounded-full"></div>
+                            </div>
+                        </div>
+                        <!-- Stat 2 -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm break-keep">
+                                <span class="text-zinc-300 font-bold">기자단 정기 업로드 수행률</span>
+                                <span class="text-electric-400 font-bold font-mono">100% (Completed)</span>
+                            </div>
+                            <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-gradient-to-r from-electric-600 to-electric-400 h-full w-full rounded-full"></div>
+                            </div>
+                        </div>
+                        <!-- Stat 3 -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm break-keep">
+                                <span class="text-zinc-300 font-bold">4년차 피트니스 루틴 지속도</span>
+                                <span class="text-electric-400 font-bold font-mono">85% (Balanced)</span>
+                            </div>
+                            <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-gradient-to-r from-electric-600 to-electric-400 h-full w-[85%] rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tech Badge Footer inside Dashboard -->
+                    <div class="text-xs text-zinc-300 font-mono flex items-center space-x-3 mt-10 border-t border-slate-800 pt-6">
+                        <i class="fa-solid fa-terminal text-electric-400 text-sm"></i>
+                        <span>Active: SSAFY 16th Cohort Developer</span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- PROFILE SECTION -->
+    <section id="about" class="py-32 bg-slate-900/40 border-t border-slate-900 relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-950 to-slate-900/10 pointer-events-none"></div>
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <!-- Profile Image / Interactive Tech Bio Visual Panel (Large Scale) -->
+                <div class="lg:col-span-5 relative">
+                    <div class="bg-slate-900 border border-slate-700 rounded-3xl p-8 space-y-8 shadow-2xl relative overflow-hidden group hover:border-electric-500/50 transition-all duration-300">
+                        <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-electric-600/10 rounded-full filter blur-xl"></div>
+                        
+                        <!-- Top Header Profile Info -->
+                        <div class="flex items-center space-x-5">
+                            <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-electric-500 to-electric-700 flex items-center justify-center text-white text-3xl font-black font-mono shadow-lg shadow-electric-500/20">
+                                DJ
+                            </div>
+                            <div class="break-keep">
+                                <h3 class="text-2xl font-bold text-white tracking-tight">전동재</h3>
+                                <p class="text-sm text-electric-400 font-mono tracking-wider mt-1">2001년생 (25세) · 백엔드 엔지니어</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Premium High-contrast List of Info with precise word-breaks -->
+                        <div class="space-y-4 text-base text-zinc-200 border-t border-slate-800 pt-8 break-keep">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-electric-400">
+                                    <i class="fa-solid fa-cake-candles text-lg"></i>
+                                </div>
+                                <span class="font-medium">01년생 / 단단한 체력과 열정의 20대 중반</span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-electric-400">
+                                    <i class="fa-solid fa-square-rss text-lg"></i>
+                                </div>
+                                <span class="font-medium">2024년부터 매월 거르지 않는 기술 블로깅</span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-electric-400">
+                                    <i class="fa-solid fa-dumbbell text-lg"></i>
+                                </div>
+                                <span class="font-medium">4년째 일상 속에서 균형을 잡는 헬스 습관</span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-electric-400">
+                                    <i class="fa-solid fa-headphones text-lg"></i>
+                                </div>
+                                <span class="font-medium">다양한 음악 취향 (편견 없는 수용과 경청)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bio Description Details -->
+                <div class="lg:col-span-7 space-y-8 text-left break-keep">
+                    <span class="text-xs tracking-widest font-extrabold text-electric-400 uppercase bg-slate-800 border border-slate-700/60 px-4 py-1.5 rounded-full">WHO IS DONGJAE JEON</span>
+                    <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
+                        거창한 선언보다<br><span class="inline-block">매일 한 줄의 성실함을</span> 선택합니다.
+                    </h2>
+                    
+                    <div class="space-y-6 text-zinc-300 text-base sm:text-lg leading-relaxed font-normal">
+                        <p>
+                            안녕하세요, 끈기 있고 정직한 백엔드 아키텍처 설계를 지향하는 **전동재**입니다. 제 일상의 균형은 명확한 두 개의 루틴으로 지탱됩니다. 하나는 매일 무거운 쇳덩이를 들며 단련하는 **4년 차 헬스 라이프**이고, 다른 하나는 눈앞에 놓인 시스템 예외 발생 이슈의 근원을 추적하는 **백엔드 트래킹**입니다.
+                        </p>
+                        <p>
+                            개발자로서 제 가장 큰 자산은 막연한 낙관이 아닌, **"오늘 내가 해야 할 훈련과 디버깅을 미루지 않고 무조건 수행하는 일상성"**입니다. 기회나 환경을 가리지 않고 긍정적으로 소통하며, 다른 시각을 지닌 팀원의 의견도 음악의 장르를 넘나들듯 편견 없이 경청하여 최고의 설계를 이끌어냅니다.
+                        </p>
+                    </div>
+                    
+                    <blockquote class="border-l-4 border-electric-500 pl-6 py-2 text-zinc-200 italic font-medium text-base bg-slate-900/50 rounded-r-xl">
+                        "반복적인 훈련은 사람을 나약하게 놔두지 않습니다. 이 주관 뚜렷한 지속성이 까다로운 실무에서도 흔들리지 않는 가치 높은 견고함으로 빛을 발할 것입니다."
+                    </blockquote>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- STRENGTHS SECTION -->
+    <section id="strengths" class="py-32 bg-slate-950 border-t border-slate-900 relative">
+        <div class="max-w-6xl mx-auto px-6">
+            
+            <div class="text-center max-w-3xl mx-auto mb-20 break-keep">
+                <span class="text-xs tracking-widest font-extrabold text-electric-400 uppercase bg-slate-900 border border-slate-800 px-4 py-1.5 rounded-full">CORE VALUE</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-6">전동재를 설명하는 5가지 핵심 가치</h2>
+                <p class="text-zinc-300 mt-4 text-base">단순한 포부를 넘어 스스로가 입증해 오고 있는 가시적인 지표들입니다.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Strength 1 -->
+                <div class="bg-slate-900 rounded-2xl p-8 border border-slate-800 transition-all duration-300 premium-glow break-keep">
+                    <div class="w-12 h-12 rounded-xl bg-slate-850 flex items-center justify-center text-electric-400 mb-6 border border-slate-700/50">
+                        <i class="fa-solid fa-bug-slash text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-3">1. 끈기 있는 문제 해결력</h3>
+                    <p class="text-sm text-zinc-300 leading-relaxed font-normal">
+                        코딩에서 막히는 예외 에러나 비동기 타임아웃 상황을 마주했을 때 도망치지 않고, 해결될 때까지 기술 레퍼런스를 파고들어 온전히 내 실력으로 흡수합니다.
+                    </p>
+                </div>
+
+                <!-- Strength 2 -->
+                <div class="bg-slate-900 rounded-2xl p-8 border border-slate-800 transition-all duration-300 premium-glow break-keep">
+                    <div class="w-12 h-12 rounded-xl bg-slate-850 flex items-center justify-center text-electric-400 mb-6 border border-slate-700/50">
+                        <i class="fa-solid fa-rss text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-3">2. 2024년부터 이어온 블로깅</h3>
+                    <p class="text-sm text-zinc-300 leading-relaxed font-normal">
+                        2024년부터 매달 최소 1개씩 한 번도 쉬지 않고 개발 지식과 고민을 기록하고 있습니다. 꾸준한 성문화는 생각의 뼈대를 만드는 저만의 힘입니다.
+                    </p>
+                </div>
+
+                <!-- Strength 3 -->
+                <div class="bg-slate-900 rounded-2xl p-8 border border-slate-800 transition-all duration-300 premium-glow break-keep">
+                    <div class="w-12 h-12 rounded-xl bg-slate-850 flex items-center justify-center text-electric-400 mb-6 border border-slate-700/50">
+                        <i class="fa-solid fa-bullseye text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-3">3. 정량적 목표 실행력</h3>
+                    <p class="text-sm text-zinc-300 leading-relaxed font-normal">
+                        성공 여부를 어설픈 형용사 대신 수치화합니다. 벤치프레스 120kg 달성과 같이 정량적 목표를 세분화하여, 하나씩 단계적으로 극복해 나가는 체질입니다.
+                    </p>
+                </div>
+
+                <!-- Strength 4 -->
+                <div class="bg-slate-900 rounded-2xl p-8 border border-slate-800 transition-all duration-300 premium-glow break-keep">
+                    <div class="w-12 h-12 rounded-xl bg-slate-850 flex items-center justify-center text-electric-400 mb-6 border border-slate-700/50">
+                        <i class="fa-solid fa-calendar-check text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-3">4. 주 1회 연재 완수의 약속</h3>
+                    <p class="text-sm text-zinc-300 leading-relaxed font-normal">
+                        정부/단체 기자단 활동 당시 주 1회 콘텐츠 발행 약속을 완수하며 강한 책임감을 증명했습니다. 협업 환경에서도 프로젝트 마감 약속을 철저히 지킵니다.
+                    </p>
+                </div>
+
+                <!-- Strength 5 -->
+                <div class="bg-slate-900 rounded-2xl p-8 border border-slate-800 transition-all duration-300 premium-glow lg:col-span-1 break-keep">
+                    <div class="w-12 h-12 rounded-xl bg-slate-850 flex items-center justify-center text-electric-400 mb-6 border border-slate-700/50">
+                        <i class="fa-solid fa-scale-balanced text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-3">5. 편견 없는 수용력</h3>
+                    <p class="text-sm text-zinc-300 leading-relaxed font-normal">
+                        발라드부터 랩, R&B, 재즈, 팝까지 다양한 장르를 포용하는 귀처럼, 나와 다른 의견을 지닌 동료와 새로운 아키텍처 패러다임을 열린 태도로 학습합니다.
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- EPISODES SECTION -->
+    <section id="episodes" class="py-32 bg-slate-900/20 border-t border-slate-900 relative">
+        <div class="max-w-6xl mx-auto px-6">
+            
+            <div class="text-center max-w-3xl mx-auto mb-20 break-keep">
+                <span class="text-xs tracking-widest font-extrabold text-electric-400 uppercase bg-slate-900 border border-slate-800 px-4 py-1.5 rounded-full">REAL EPISODES</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-6">꾸준함과 정량적 성공의 실체</h2>
+                <p class="text-zinc-300 mt-4 text-base">과장된 서사가 아닌 직접 부딪히며 통과한 사실들만을 나열합니다.</p>
+            </div>
+
+            <div class="space-y-12 max-w-4xl mx-auto">
+                <!-- Episode 1: 블로그 & 기자단 -->
+                <div class="flex flex-col lg:flex-row gap-10 bg-slate-900 border border-slate-800 p-8 sm:p-10 rounded-2xl items-center hover:border-slate-700 transition-all duration-300">
+                    <div class="lg:w-1/3 text-center">
+                        <div class="w-24 h-24 bg-slate-950 text-electric-400 rounded-full flex items-center justify-center mx-auto mb-5 border border-slate-800 shadow-inner">
+                            <i class="fa-solid fa-pen-nib text-3xl animate-bounce"></i>
+                        </div>
+                        <span class="px-4 py-1.5 bg-electric-500/10 text-electric-400 text-xs font-extrabold tracking-widest rounded-full uppercase border border-electric-500/20">DOCUMENTATION</span>
+                        <h4 class="text-xl font-black text-white mt-4">2024~ 월간/주간 연재</h4>
+                    </div>
+                    
+                    <div class="lg:w-2/3 space-y-4 text-left break-keep">
+                        <h3 class="text-xl font-bold text-white border-b border-slate-800 pb-3">"기록의 힘, 약속을 지키는 정기적 아카이빙"</h3>
+                        <p class="text-sm sm:text-base text-zinc-300 leading-relaxed font-normal">
+                            2024년부터 지금까지 매월 최소 1개씩 한 번의 누락 없이 꾸준히 기술 및 생각 정리 블로그를 운영하고 있습니다. 이는 단순한 기록 축적을 넘어 자기 제어와 성실함의 상징입니다. 이에 더해 과거 기자단 활동 당시에는 매주 1회 정기 콘텐츠 발행 일정을 철저히 지키며 높은 책임감과 기획 능력을 동시에 검증받았습니다.
+                        </p>
+                        <div class="flex items-center space-x-3 text-xs text-electric-400 font-bold bg-electric-500/5 px-4 py-2 rounded-lg border border-electric-500/10 w-fit">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>성실한 문서화 습관은 유지보수하기 좋은 소프트웨어 설계의 밑거름입니다.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Episode 2: 4년 헬스 & 벤치프레스 120kg -->
+                <div class="flex flex-col lg:flex-row gap-10 bg-slate-900 border border-slate-800 p-8 sm:p-10 rounded-2xl items-center hover:border-slate-700 transition-all duration-300">
+                    <div class="lg:w-1/3 text-center">
+                        <div class="w-24 h-24 bg-slate-950 text-electric-400 rounded-full flex items-center justify-center mx-auto mb-5 border border-slate-800 shadow-inner">
+                            <i class="fa-solid fa-dumbbell text-3xl"></i>
+                        </div>
+                        <span class="px-4 py-1.5 bg-electric-500/10 text-electric-400 text-xs font-extrabold tracking-widest rounded-full uppercase border border-electric-500/20">ROUTINE WORK</span>
+                        <h4 class="text-xl font-black text-white mt-4">4년 지속 · 120kg 돌파</h4>
+                    </div>
+                    
+                    <div class="lg:w-2/3 space-y-4 text-left break-keep">
+                        <h3 class="text-xl font-bold text-white border-b border-slate-800 pb-3">"무리한 강박보다 건강한 조절로 만들어 낸 성과"</h3>
+                        <p class="text-sm sm:text-base text-zinc-300 leading-relaxed font-normal">
+                            삶의 건강한 흐름을 지속하기 위해 4년 전 피트니스를 시작했습니다. 기괴한 새벽 무한 반복 같은 비현실적인 강박 대신, 학업과 일과의 균형을 유지하며 꾸준히 헬스장으로 발걸음을 옮겼습니다. 지속적인 정량적 기록과 점진적 과부하를 적용해 마침내 벤치프레스 120kg 달성에 성공했습니다. 이렇게 체득한 정량적 성장 메커니즘은 복잡한 백엔드 아키텍처 최적화 시에도 점진적이고 완벽한 결과물로 도출됩니다.
+                        </p>
+                        <div class="flex items-center space-x-3 text-xs text-electric-400 font-bold bg-electric-500/5 px-4 py-2 rounded-lg border border-electric-500/10 w-fit">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>일관된 완급 조절은 장기 레이스 프로젝트에서도 번아웃 없는 팀 동력이 됩니다.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Episode 3: 어려운 코드 극복기 -->
+                <div class="flex flex-col lg:flex-row gap-10 bg-slate-900 border border-slate-800 p-8 sm:p-10 rounded-2xl items-center hover:border-slate-700 transition-all duration-300">
+                    <div class="lg:w-1/3 text-center">
+                        <div class="w-24 h-24 bg-slate-950 text-electric-400 rounded-full flex items-center justify-center mx-auto mb-5 border border-slate-800 shadow-inner">
+                            <i class="fa-solid fa-network-wired text-3xl"></i>
+                        </div>
+                        <span class="px-4 py-1.5 bg-electric-500/10 text-electric-400 text-xs font-extrabold tracking-widest rounded-full uppercase border border-electric-500/20">TROUBLESHOOTING</span>
+                        <h4 class="text-xl font-black text-white mt-4">집요한 역추적 해결</h4>
+                    </div>
+                    
+                    <div class="lg:w-2/3 space-y-4 text-left break-keep">
+                        <h3 class="text-xl font-bold text-white border-b border-slate-800 pb-3">"불안정했던 서버 예외 응답을 공식 문서 분석으로 완벽 해결"</h3>
+                        <p class="text-sm sm:text-base text-zinc-300 leading-relaxed font-normal">
+                            이전 웹 기반 미니 프로젝트를 진행하는 동안 원인 불명의 비동기 API 타임아웃 지연과 먹통 상태가 잦게 관측되었습니다. 대부분의 사람들이 난감해할 때, 포기하지 않고 로컬 디버그 단계별 로그 출력을 하나씩 파헤쳤습니다. 까다로운 동시성 예외 발생 제어 메커니즘과 관련된 공식 영문 라이브러리 문서를 정독한 끝에 동기화 예외 유효성 검사 구조를 직접 빌드하여, 무사히 최적화된 백엔드 설계를 완료했습니다.
+                        </p>
+                        <div class="flex items-center space-x-3 text-xs text-electric-400 font-bold bg-electric-500/5 px-4 py-2 rounded-lg border border-electric-500/10 w-fit">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>모르는 지식도 끝끝내 집요하게 추적하여 내 것으로 소화해 냅니다.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- MUSIC TASTE SECTION -->
+    <section id="tastes" class="py-32 bg-slate-950 border-t border-slate-900 relative">
+        <div class="max-w-6xl mx-auto px-6">
+            
+            <div class="text-center max-w-3xl mx-auto mb-20 break-keep">
+                <span class="text-xs tracking-widest font-extrabold text-electric-400 uppercase bg-slate-900 border border-slate-800 px-4 py-1.5 rounded-full">DONGJAE'S PLAYLIST</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-6">감상하는 주관, 경청하는 태도</h2>
+                <p class="text-zinc-300 mt-4 text-base">좋은 사운드를 선별하는 고집 있는 취향은, 백엔드의 정밀한 코드를 엮어가는 섬세함으로 전환됩니다.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
+                <!-- Massive Responsive Audio Player (Figma Prototype level styling) -->
+                <div class="lg:col-span-5 bg-slate-900 text-white rounded-2xl p-8 sm:p-10 flex flex-col justify-between shadow-2xl relative overflow-hidden border border-slate-800">
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-electric-500/10 rounded-full filter blur-3xl pointer-events-none"></div>
+                    
+                    <div class="flex justify-between items-center z-10 mb-8">
+                        <span class="text-[11px] font-bold tracking-widest text-zinc-400 font-mono">DIGITAL TONE & COLOR</span>
+                        <div id="visualizer" class="hidden flex items-end space-x-1.5 h-6">
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                        </div>
+                    </div>
+
+                    <div class="my-6 text-center z-10 space-y-6">
+                        <!-- Vinyl Rotating Simulation Area (Highly Visible, expanded Scale) -->
+                        <div class="w-44 h-44 sm:w-48 sm:h-48 bg-slate-950 rounded-full mx-auto shadow-2xl flex items-center justify-center relative border border-slate-800 animate-[spin_12s_linear_infinite_paused]" id="vinyl">
+                            <div class="w-16 h-16 bg-slate-900 rounded-full border border-slate-800 flex items-center justify-center">
+                                <div class="w-3.5 h-3.5 bg-electric-500 rounded-full"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-2 break-keep">
+                            <h3 id="player-title" class="text-xl sm:text-2xl font-black tracking-tight text-white">곡을 선택해주세요</h3>
+                            <p id="player-artist" class="text-xs sm:text-sm text-zinc-300 leading-relaxed font-normal">트랙 카드를 탭하면 전동재의 추천 코멘트와 가상 재생 시뮬레이션이 활성화됩니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 z-10 mt-8">
+                        <div class="flex justify-between text-xs text-zinc-400 font-mono">
+                            <span id="time-current">0:00</span>
+                            <span id="time-total">3:22</span>
+                        </div>
+                        <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
+                            <div id="progress" class="bg-electric-500 h-full w-0 transition-all duration-300"></div>
+                        </div>
+                        
+                        <div class="flex justify-center items-center space-x-8 pt-4">
+                            <button id="btn-prev" class="text-zinc-400 hover:text-white transition-colors" aria-label="이전"><i class="fa-solid fa-backward-step text-lg"></i></button>
+                            <button id="btn-play" class="w-14 h-14 bg-white text-slate-950 rounded-full flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-lg" aria-label="재생">
+                                <i id="play-icon" class="fa-solid fa-play text-base ml-1"></i>
+                            </button>
+                            <button id="btn-next" class="text-zinc-400 hover:text-white transition-colors" aria-label="다음"><i class="fa-solid fa-forward-step text-lg"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Playlist Track Selection Cards (Enhanced Text Readability with break-keep) -->
+                <div class="lg:col-span-7 space-y-4 flex flex-col justify-between break-keep">
+                    
+                    <!-- Track 1: Gongwon - Firework (Set as Top Favorite / My Pick) -->
+                    <div id="default-track-card" onclick="selectTrack('공원 (Gongwon)', '불꽃놀이', '축제처럼 터져나가는 경쾌한 질감 뒤로, 한 땀 한 땀 디테일하게 편곡된 악기 소리들의 정밀함이 백엔드 유효성 설계를 떠올리게 하는 저의 최애곡입니다.', '3:22')" class="track-card bg-slate-900 hover:bg-slate-850 border border-slate-800/80 p-5 rounded-xl flex items-center justify-between cursor-pointer transition-all hover:scale-[1.01] active:scale-[0.99]">
+                        <div class="flex items-center space-x-5">
+                            <div class="w-12 h-12 bg-slate-950 rounded-xl flex items-center justify-center text-electric-400 border border-slate-800">
+                                <i class="fa-solid fa-fire text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-base font-bold text-white">불꽃놀이</h4>
+                                <p class="text-xs text-zinc-300 mt-1">공원 (Gongwon) · Alternative Pop</p>
+                            </div>
+                        </div>
+                        <span class="text-xs text-electric-400 font-bold bg-electric-500/10 px-3 py-1 rounded-full border border-electric-500/20">My Pick</span>
+                    </div>
+
+                    <!-- Track 2: Yunmachi - Color it (Corrected name and high contrast description) -->
+                    <div onclick="selectTrack('윤마치 (Yunmachi)', 'Color it', '기존의 흔한 편견이나 고정관념을 넘어서서, 다채로운 스펙트럼으로 일상을 물들여가는 청량한 무드가 기분 좋은 최애 R&B 곡입니다.', '3:05')" class="track-card bg-slate-900 hover:bg-slate-850 border border-slate-800/80 p-5 rounded-xl flex items-center justify-between cursor-pointer transition-all hover:scale-[1.01] active:scale-[0.99]">
+                        <div class="flex items-center space-x-5">
+                            <div class="w-12 h-12 bg-slate-950 rounded-xl flex items-center justify-center text-electric-400 border border-slate-800">
+                                <i class="fa-solid fa-compact-disc text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-base font-bold text-white">Color it</h4>
+                                <p class="text-xs text-zinc-300 mt-1">윤마치 (Yunmachi) · Soulful R&B</p>
+                            </div>
+                        </div>
+                        <span class="text-xs text-zinc-300 font-semibold bg-slate-950 px-3 py-1 rounded-full border border-slate-800">R&B</span>
+                    </div>
+
+                    <!-- Track 3: Chill/Lofi -->
+                    <div onclick="selectTrack('Jazz Beats', 'Autumn Coffee Shop', '알고리즘을 풀거나 깊은 디버깅 늪에 빠졌을 때 심적인 평정심을 선사하는 아늑하고 리드미컬한 재즈 비트 음악.', '4:12')" class="track-card bg-slate-900 hover:bg-slate-850 border border-slate-800/80 p-5 rounded-xl flex items-center justify-between cursor-pointer transition-all hover:scale-[1.01] active:scale-[0.99]">
+                        <div class="flex items-center space-x-5">
+                            <div class="w-12 h-12 bg-slate-950 rounded-xl flex items-center justify-center text-electric-400 border border-slate-800">
+                                <i class="fa-solid fa-mug-hot text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-base font-bold text-white">Autumn Coffee Shop</h4>
+                                <p class="text-xs text-zinc-300 mt-1">Lo-Fi Jazz · Relaxing Vibe</p>
+                            </div>
+                        </div>
+                        <span class="text-xs text-zinc-300 font-semibold bg-slate-950 px-3 py-1 rounded-full border border-slate-800">Deep Focus</span>
+                    </div>
+
+                    <!-- Human Touch / Designer explanatory note (Clean text visual contrast) -->
+                    <div class="bg-slate-900/40 p-5 rounded-xl text-xs sm:text-sm text-zinc-300 leading-relaxed border border-slate-800 flex items-start space-x-4">
+                        <i class="fa-solid fa-circle-info text-electric-400 text-lg mt-0.5"></i>
+                        <span>다채로운 아티스트의 고유 가치를 편견 없이 받아들이고 음미하는 리스너의 철학은, <strong>나와 생각이 다른 팀원을 포용해 최적의 백엔드 성능 모델을 구성</strong>하는 전동재만의 유연한 가치관이 됩니다.</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-32 bg-slate-950 border-t border-slate-900 text-white relative overflow-hidden">
+        <div class="absolute bottom-[-15%] left-1/2 -translate-x-1/2 w-[70%] h-[50%] rounded-full bg-electric-700/10 filter blur-[150px] pointer-events-none"></div>
+        
+        <div class="max-w-4xl mx-auto px-6 relative z-10 text-center space-y-8 break-keep">
+            <span class="text-electric-400 font-bold text-xs uppercase tracking-widest bg-slate-900 border border-slate-800 px-4 py-1.5 rounded-full">LET'S BUILD TOGETHER</span>
+            <h2 class="text-4xl sm:text-5xl font-black tracking-tight leading-tight">
+                준비된 동료 전동재와<br>
+                <span class="inline-block">견고한 시너지를</span> 창출해 보세요.
+            </h2>
+            <p class="text-zinc-300 text-base sm:text-lg max-w-xl mx-auto leading-relaxed font-normal">
+                싸피 동기, 스터디 그룹, 또는 함께 단단한 비즈니스 아키텍처를 그려나갈 백엔드 주니어가 필요하시다면 주저 없이 메일을 건네주세요. 늘 한결같은 성실함으로 기여하겠습니다.
+            </p>
+
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button onclick="copyEmailAddress()" class="w-full sm:w-auto inline-flex items-center justify-center space-x-3 bg-white text-slate-950 font-black text-sm px-8 py-4.5 rounded-xl shadow-2xl hover:bg-zinc-200 active:scale-95 transition-all duration-200">
+                    <i class="fa-solid fa-copy"></i>
+                    <span>이메일 복사하기</span>
+                </button>
+                <a href="mailto:jdj355@naver.com" class="w-full sm:w-auto inline-flex items-center justify-center space-x-3 bg-slate-900 text-white border border-slate-800 font-semibold text-sm px-8 py-4.5 rounded-xl hover:bg-slate-800 hover:border-slate-700 transition-colors duration-200">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>직접 메일 전송하기</span>
+                </a>
+            </div>
+
+            <div class="max-w-xs mx-auto bg-slate-900/60 border border-slate-800 rounded-xl p-4 text-[11px] font-mono text-zinc-400 flex justify-between items-center">
+                <span>SSAFY 16th Student</span>
+                <span>::</span>
+                <span>2001-Born</span>
+                <span>::</span>
+                <span>Backend Dev</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-zinc-500 py-16 border-t border-slate-900/80">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="space-y-2 text-center md:text-left break-keep">
+                <h3 class="text-base font-extrabold text-white tracking-wider">전동재 | DONGJAE</h3>
+                <p class="text-xs text-zinc-400">꾸준함이라는 가장 완벽한 로직을 행동으로 평생 증명합니다.</p>
+            </div>
+            <div class="flex space-x-6 text-base">
+                <a href="https://github.com" target="_blank" rel="noopener" class="text-zinc-400 hover:text-white transition-colors" aria-label="Github"><i class="fa-brands fa-github text-xl"></i></a>
+                <a href="#" class="text-zinc-400 hover:text-white transition-colors" aria-label="Blog"><i class="fa-solid fa-rss text-xl"></i></a>
+                <a href="#contact" class="text-zinc-400 hover:text-white transition-colors" aria-label="Contact"><i class="fa-solid fa-address-book text-xl"></i></a>
+            </div>
+        </div>
+        <div class="max-w-6xl mx-auto px-6 mt-10 pt-8 border-t border-slate-900/40 text-center text-[10px] text-zinc-600 font-mono">
+            <p>© 2026 Jeon Dongjae. Fully Redesigned for Figma Grade Contrast & Elegance. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- CUSTOM TOAST ALERT NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 border border-slate-700 text-white px-6 py-4 rounded-xl shadow-2xl translate-y-20 opacity-0 transition-all duration-300 flex items-center space-x-4 pointer-events-none">
+        <div class="w-8 h-8 rounded-full bg-electric-500/10 text-electric-400 flex items-center justify-center text-xs">
+            <i class="fa-solid fa-circle-check text-base"></i>
+        </div>
+        <div class="break-keep">
+            <h4 class="font-bold text-xs text-white">클립보드 수록 완료</h4>
+            <p class="text-[11px] text-zinc-300 mt-0.5" id="toast-message">이메일 주소가 무사히 클립보드에 기록되었습니다.</p>
+        </div>
+    </div>
+
+    <!-- PLAYBACK & UTILITY SCRIPT -->
+    <script>
+        // Mobile Toggle Menu
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile dropdown when link is clicked
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Advanced Web-Player Emulator State
+        let activeTrack = null;
+        let isPlaying = false;
+        let playInterval = null;
+        let progressPercent = 0;
+
+        const playerTitle = document.getElementById('player-title');
+        const playerArtist = document.getElementById('player-artist');
+        const visualizer = document.getElementById('visualizer');
+        const vinyl = document.getElementById('vinyl');
+        const playIcon = document.getElementById('play-icon');
+        const progress = document.getElementById('progress');
+        const btnPlay = document.getElementById('btn-play');
+        const timeCurrent = document.getElementById('time-current');
+
+        const defaultTrack = {
+            artist: '공원 (Gongwon)',
+            title: '불꽃놀이',
+            desc: '축제처럼 터져나가는 경쾌한 질감 뒤로, 한 땀 한 땀 디테일하게 편곡된 악기 소리들의 정밀함이 백엔드 유효성 설계를 떠올리게 하는 저의 최애곡입니다.',
+            length: '3:22'
+        };
+
+        function selectTrack(artist, title, desc, length) {
+            activeTrack = { artist, title, desc, length };
+            
+            // UI Update
+            playerTitle.textContent = title;
+            playerArtist.textContent = `${artist} - ${desc}`;
+            document.getElementById('time-total').textContent = length;
+            
+            // Highlight Selected Card in Figma Grade Contrast
+            document.querySelectorAll('.track-card').forEach(card => {
+                card.classList.remove('border-electric-500', 'bg-slate-800');
+                card.classList.add('border-slate-800/80', 'bg-slate-900');
+            });
+            event.currentTarget.classList.remove('border-slate-800/80', 'bg-slate-900');
+            event.currentTarget.classList.add('border-electric-500', 'bg-slate-800');
+            
+            stopPlayer();
+            startPlayer();
+        }
+
+        function stopPlayer() {
+            isPlaying = false;
+            clearInterval(playInterval);
+            progressPercent = 0;
+            progress.style.width = '0%';
+            timeCurrent.textContent = '0:00';
+            playIcon.className = 'fa-solid fa-play text-base ml-1';
+            visualizer.classList.add('hidden');
+            vinyl.style.animationPlayState = 'paused';
+        }
+
+        function startPlayer() {
+            if (!activeTrack) {
+                activeTrack = defaultTrack;
+                playerTitle.textContent = activeTrack.title;
+                playerArtist.textContent = `${activeTrack.artist} - ${activeTrack.desc}`;
+            }
+
+            isPlaying = true;
+            playIcon.className = 'fa-solid fa-pause text-base';
+            visualizer.classList.remove('hidden');
+            vinyl.style.animationPlayState = 'running';
+
+            const splitLength = activeTrack.length.split(':');
+            const totalSeconds = parseInt(splitLength[0]) * 60 + parseInt(splitLength[1]);
+
+            playInterval = setInterval(() => {
+                if (progressPercent >= 100) {
+                    stopPlayer();
+                    showToast('감상 완료', '전동재의 플레이리스트 가상 오디오 재생이 무사히 완료되었습니다.');
+                } else {
+                    progressPercent += 1;
+                    progress.style.width = `${progressPercent}%`;
+
+                    const elapsedSeconds = Math.floor((progressPercent / 100) * totalSeconds);
+                    const minutes = Math.floor(elapsedSeconds / 60);
+                    const seconds = elapsedSeconds % 60;
+                    timeCurrent.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                }
+            }, 250);
+        }
+
+        btnPlay.addEventListener('click', () => {
+            if (isPlaying) {
+                stopPlayer();
+            } else {
+                startPlayer();
+            }
+        });
+
+        // Clipboard Copy Helper with Toast Alerts
+        function copyEmailAddress() {
+            const emailText = 'jdj355@naver.com';
+            const tempInput = document.createElement('input');
+            tempInput.value = emailText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            
+            try {
+                document.execCommand('copy');
+                showToast('이메일 주소 복사 완료', `${emailText}가 클립보드에 무사히 수록되었습니다.`);
+            } catch (err) {
+                showToast('복사 실패', '브라우저 보안 제약으로 수동 복사 부탁드립니다.');
+            }
+            
+            document.body.removeChild(tempInput);
+        }
+
+        function showToast(title, message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = message;
+            toast.querySelector('h4').textContent = title;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        // Initialize with Gongwon - Firework card highlighted
+        window.onload = function() {
+            const defaultCard = document.getElementById('default-track-card');
+            if (defaultCard) {
+                defaultCard.classList.remove('border-slate-800/80', 'bg-slate-900');
+                defaultCard.classList.add('border-electric-500', 'bg-slate-800');
+                activeTrack = defaultTrack;
+                playerTitle.textContent = activeTrack.title;
+                playerArtist.textContent = `${activeTrack.artist} - ${activeTrack.desc}`;
+            }
+        }
+    </script>
+</body>
+</html>
