@@ -123,32 +123,35 @@
 
         /* ============ LIGHT MODE OVERRIDES ============ */
         html.light body {
-            background-color: #f7f8fa;
+            background-color: #eef0f3;
             color: #1f2937;
         }
 
         /* Base surface colors — exact token match (won't catch hover:* variants) */
         html.light [class~="bg-slate-950"] { background-color: #ffffff !important; }
-        html.light [class~="bg-slate-900"] { background-color: #f1f3f6 !important; }
-        html.light [class~="bg-slate-850"] { background-color: #eceff3 !important; }
-        html.light [class~="bg-slate-800"] { background-color: #e6e9ee !important; }
+        html.light [class~="bg-slate-900"] { background-color: #ffffff !important; }
+        html.light [class~="bg-slate-850"] { background-color: #f7f8fa !important; }
+        html.light [class~="bg-slate-800"] { background-color: #eef0f3 !important; }
 
         /* Opacity-suffixed surface variants (e.g. bg-slate-950/80) — safe substring match, no hover collisions in this file */
         html.light [class*="bg-slate-950/"] { background-color: rgba(255,255,255,0.9) !important; }
-        html.light [class*="bg-slate-900/"] { background-color: rgba(241,243,246,0.85) !important; }
+        html.light [class*="bg-slate-900/"] { background-color: rgba(255,255,255,0.85) !important; }
         html.light [class*="bg-electric-500/"],
         html.light [class*="bg-electric-600/"],
         html.light [class*="bg-electric-700/"] { background-color: rgba(37,99,235,0.08) !important; }
 
-        /* Borders — exact tokens */
+        /* Borders — exact tokens, darkened for visible separation from the page background */
         html.light [class~="border-slate-600"],
         html.light [class~="border-slate-700"],
         html.light [class~="border-slate-800"],
-        html.light [class~="border-slate-900"] { border-color: #dde1e7 !important; }
+        html.light [class~="border-slate-900"] {
+            border-color: #c7ccd4 !important;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+        }
         html.light [class*="border-slate-700/"],
         html.light [class*="border-slate-800/"],
-        html.light [class*="border-slate-900/"] { border-color: #dde1e7 !important; }
-        html.light [class*="border-electric-500/"] { border-color: rgba(37,99,235,0.25) !important; }
+        html.light [class*="border-slate-900/"] { border-color: #c7ccd4 !important; }
+        html.light [class*="border-electric-500/"] { border-color: rgba(37,99,235,0.3) !important; }
         html.light [class*="border-white/"] { border-color: #e5e7eb !important; }
 
         /* Text colors — exact tokens only, so hover:text-* stays untouched here */
@@ -181,6 +184,10 @@
         html.light [class~="bg-white"] [class~="text-slate-950"] { color: #ffffff !important; }
         html.light [class~="text-slate-950"] { color: #ffffff !important; }
         html.light [class~="hover:bg-zinc-200"]:hover { background-color: #2c333f !important; }
+
+        /* Quiz correct/incorrect feedback stays readable in light mode too */
+        html.light [class~="!text-emerald-300"] { color: #047857 !important; }
+        html.light [class~="!text-red-300"] { color: #b91c1c !important; }
 
         html.light ::selection {
             background-color: rgba(29, 78, 216, 0.2);
@@ -263,6 +270,7 @@
                 <a href="#tastes" class="hover:text-electric-400 transition-colors duration-200">TASTES</a>
                 <a href="#guestbook" class="hover:text-electric-400 transition-colors duration-200">GUESTBOOK</a>
                 <a href="#minigame" class="hover:text-electric-400 transition-colors duration-200">PLAY</a>
+                <a href="#quiz" class="hover:text-electric-400 transition-colors duration-200">QUIZ</a>
                 <a href="#contact" class="hover:text-electric-400 transition-colors duration-200">CONTACT</a>
             </nav>
 
@@ -287,6 +295,7 @@
             <a href="#tastes" class="block text-sm text-zinc-200 hover:text-white font-medium">TASTES</a>
             <a href="#guestbook" class="block text-sm text-zinc-200 hover:text-white font-medium">GUESTBOOK</a>
             <a href="#minigame" class="block text-sm text-zinc-200 hover:text-white font-medium">PLAY</a>
+            <a href="#quiz" class="block text-sm text-zinc-200 hover:text-white font-medium">QUIZ</a>
             <a href="#contact" class="block text-sm text-zinc-200 hover:text-white font-medium">CONTACT</a>
         </div>
     </header>
@@ -768,7 +777,7 @@
         <div class="max-w-2xl mx-auto px-6 relative z-10">
             <div class="text-center max-w-2xl mx-auto mb-14 break-keep reveal">
                 <span class="text-xs tracking-widest font-extrabold text-electric-400 uppercase bg-slate-900 border border-slate-800 px-4 py-1.5 rounded-full">MINI GAME</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-6">10초 벤치프레스 챌린지</h2>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-6">10초 끈기 챌린지</h2>
                 <p class="text-zinc-300 mt-4 text-base">10초 동안 버튼을 최대한 많이 눌러서 전동재만큼 끈기 있는지 테스트해보세요.</p>
             </div>
 
@@ -793,7 +802,76 @@
                     <span id="bp-button-label">시작하기</span>
                 </button>
 
+                <div id="bp-badge" class="hidden inline-flex items-center gap-3 mx-auto bg-slate-950 border border-slate-800 rounded-full pl-3 pr-5 py-2">
+                    <span id="bp-badge-icon" class="w-9 h-9 rounded-full flex items-center justify-center text-sm" style="color:#1f2937"><i class="fa-solid fa-medal"></i></span>
+                    <span class="text-left">
+                        <span id="bp-badge-tier" class="block text-[11px] font-bold tracking-widest uppercase"></span>
+                        <span id="bp-badge-title" class="block text-sm font-bold text-white"></span>
+                    </span>
+                </div>
+
                 <p id="bp-result" class="text-sm text-zinc-300 min-h-[1.5rem]"></p>
+            </div>
+
+            <!-- Recent attempts history -->
+            <div class="reveal mt-6 bg-slate-900 border border-slate-800 rounded-2xl p-6" style="transition-delay: 0.1s">
+                <h3 class="text-sm font-bold text-white mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-clock-rotate-left text-electric-400"></i>
+                    <span>최근 기록</span>
+                </h3>
+                <div id="bp-history" class="space-y-2"></div>
+                <p id="bp-history-empty" class="text-xs text-zinc-500">아직 기록이 없어요. 챌린지에 도전해보세요!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPEED QUIZ SECTION -->
+    <section id="quiz" class="py-32 bg-slate-900/20 border-t border-slate-900 relative">
+        <div class="max-w-2xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-14 break-keep reveal">
+                <span class="text-xs tracking-widest font-extrabold text-electric-400 uppercase bg-slate-900 border border-slate-800 px-4 py-1.5 rounded-full">SPEED QUIZ</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-6">전동재를 얼마나 아세요?</h2>
+                <p class="text-zinc-300 mt-4 text-base">3문제, 문제당 8초. 제한시간 안에 정답을 골라보세요.</p>
+            </div>
+
+            <div class="reveal bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-10">
+
+                <!-- Intro state -->
+                <div id="quiz-intro" class="text-center py-6 space-y-6">
+                    <i class="fa-solid fa-circle-question text-5xl text-electric-400"></i>
+                    <p class="text-zinc-300 text-sm">준비되셨으면 아래 버튼을 눌러 시작하세요.</p>
+                    <button id="quiz-start" class="px-8 py-3.5 bg-electric-500 hover:bg-electric-600 text-white font-bold text-sm rounded-xl transition-colors duration-200">
+                        퀴즈 시작하기
+                    </button>
+                </div>
+
+                <!-- Playing state -->
+                <div id="quiz-playing" class="hidden space-y-6">
+                    <div class="flex items-center justify-between text-xs text-zinc-400 font-mono">
+                        <span id="quiz-progress">질문 1 / 3</span>
+                        <span id="quiz-timer" class="text-electric-400 font-bold">8.0s</span>
+                    </div>
+                    <div class="w-full bg-slate-950 h-1.5 rounded-full overflow-hidden border border-slate-800">
+                        <div id="quiz-timer-bar" class="bg-electric-500 h-full rounded-full" style="width: 100%; transition: width 0.1s linear;"></div>
+                    </div>
+
+                    <h3 id="quiz-question" class="text-xl sm:text-2xl font-bold text-white text-center break-keep py-2"></h3>
+
+                    <div id="quiz-options" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+                </div>
+
+                <!-- Result state -->
+                <div id="quiz-result" class="hidden text-center py-6 space-y-6">
+                    <i class="fa-solid fa-trophy text-5xl text-electric-400"></i>
+                    <div>
+                        <div id="quiz-score" class="text-4xl font-black text-white font-mono">0 / 3</div>
+                        <p id="quiz-score-msg" class="text-zinc-300 text-sm mt-2"></p>
+                    </div>
+                    <button id="quiz-retry" class="px-8 py-3.5 bg-slate-800 hover:bg-slate-700 text-white font-bold text-sm rounded-xl transition-colors duration-200 border border-slate-700">
+                        다시 풀기
+                    </button>
+                </div>
+
             </div>
         </div>
     </section>
@@ -1171,31 +1249,99 @@
         });
         renderGuestbook();
 
-        // ============ MINI GAME: 10-SECOND BENCH PRESS CLICKER ============
+        // ============ MINI GAME: 10-SECOND CONSISTENCY CHALLENGE ============
         const BP_BEST_KEY = 'dongjae-bp-best';
+        const BP_HISTORY_KEY = 'dongjae-bp-history';
+        const BP_HISTORY_LIMIT = 8;
+
         const bpButton = document.getElementById('bp-button');
         const bpButtonLabel = document.getElementById('bp-button-label');
         const bpTimerEl = document.getElementById('bp-timer');
         const bpCountEl = document.getElementById('bp-count');
         const bpBestEl = document.getElementById('bp-best');
         const bpResultEl = document.getElementById('bp-result');
+        const bpBadgeEl = document.getElementById('bp-badge');
+        const bpBadgeIconEl = document.getElementById('bp-badge-icon');
+        const bpBadgeTierEl = document.getElementById('bp-badge-tier');
+        const bpBadgeTitleEl = document.getElementById('bp-badge-title');
+        const bpHistoryEl = document.getElementById('bp-history');
+        const bpHistoryEmptyEl = document.getElementById('bp-history-empty');
 
         let bpState = 'idle'; // idle | playing | done
         let bpCount = 0;
         let bpTimeLeft = 10;
         let bpTimerInterval = null;
 
+        // Tier system — points earned each round determine bronze / silver / gold
+        const BP_TIERS = [
+            { key: 'bronze', min: 0,  label: '브론즈', title: '가벼운 워밍업', color: '#cd7f32', icon: 'fa-medal', msg: '몸풀기로 나쁘지 않아요. 한 번 더 도전해볼까요?' },
+            { key: 'silver', min: 40, label: '실버',   title: '꾸준한 루키',   color: '#9ca3af', icon: 'fa-medal', msg: '괜찮은 페이스예요. 조금만 더 밀어붙여 보세요!' },
+            { key: 'gold',   min: 80, label: '골드',   title: '전동재급 끈기', color: '#f5b301', icon: 'fa-trophy', msg: '정말 끈질기시네요, 이 정도면 인정! 🔥' }
+        ];
+
+        function bpGetTier(count) {
+            let tier = BP_TIERS[0];
+            for (const t of BP_TIERS) {
+                if (count >= t.min) tier = t;
+            }
+            return tier;
+        }
+
         function bpGetBest() {
             return parseInt(localStorage.getItem(BP_BEST_KEY) || '0', 10);
         }
-        bpBestEl.textContent = bpGetBest();
 
-        function bpRank(count) {
-            if (count < 15) return { label: '가벼운 워밍업', msg: '몸풀기로 나쁘지 않아요. 한 번 더 도전해볼까요?' };
-            if (count < 30) return { label: '루키', msg: '괜찮은 페이스예요. 조금만 더 밀어붙여 보세요!' };
-            if (count < 45) return { label: '베테랑', msg: '꽤 끈기 있으시네요. 4년차 헬스인의 기운이 느껴져요.' };
-            return { label: '전동재급 끈기', msg: '120kg 벤치프레스 각! 정말 끈질기시네요 🔥' };
+        function bpLoadHistory() {
+            try {
+                return JSON.parse(localStorage.getItem(BP_HISTORY_KEY) || '[]');
+            } catch (e) {
+                return [];
+            }
         }
+
+        function bpSaveAttempt(count, tier) {
+            const history = bpLoadHistory();
+            history.unshift({
+                count,
+                tier: tier.key,
+                label: tier.label,
+                date: new Date().toLocaleDateString('ko-KR', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
+            });
+            const trimmed = history.slice(0, BP_HISTORY_LIMIT);
+            localStorage.setItem(BP_HISTORY_KEY, JSON.stringify(trimmed));
+            return trimmed;
+        }
+
+        function bpRenderHistory() {
+            const history = bpLoadHistory();
+            bpHistoryEl.innerHTML = '';
+
+            if (history.length === 0) {
+                bpHistoryEmptyEl.classList.remove('hidden');
+                return;
+            }
+            bpHistoryEmptyEl.classList.add('hidden');
+
+            history.forEach((entry) => {
+                const tier = BP_TIERS.find((t) => t.key === entry.tier) || BP_TIERS[0];
+                const row = document.createElement('div');
+                row.className = 'flex items-center justify-between bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5';
+                row.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="w-7 h-7 rounded-full flex items-center justify-center text-xs" style="background-color:${tier.color}; color:#1f2937">
+                            <i class="fa-solid ${tier.icon}"></i>
+                        </span>
+                        <span class="text-xs font-bold" style="color:${tier.color}">${tier.label}</span>
+                        <span class="text-xs text-zinc-500 font-mono">${entry.date}</span>
+                    </div>
+                    <span class="text-sm font-bold text-white font-mono">${entry.count}회</span>
+                `;
+                bpHistoryEl.appendChild(row);
+            });
+        }
+
+        bpBestEl.textContent = bpGetBest();
+        bpRenderHistory();
 
         function bpStart() {
             if (bpState === 'playing') return;
@@ -1205,6 +1351,7 @@
             bpCountEl.textContent = '0';
             bpTimerEl.textContent = '10.0';
             bpResultEl.textContent = '';
+            bpBadgeEl.classList.add('hidden');
             bpButtonLabel.textContent = 'PRESS!';
 
             const startTime = Date.now();
@@ -1231,8 +1378,19 @@
                 bpBestEl.textContent = bpCount;
             }
 
-            const rank = bpRank(bpCount);
-            bpResultEl.innerHTML = `<span class="text-electric-400 font-bold">${rank.label}</span> — ${rank.msg}`;
+            const tier = bpGetTier(bpCount);
+            bpSaveAttempt(bpCount, tier);
+            bpRenderHistory();
+
+            // Show earned tier badge
+            bpBadgeEl.classList.remove('hidden');
+            bpBadgeIconEl.style.backgroundColor = tier.color;
+            bpBadgeIconEl.innerHTML = `<i class="fa-solid ${tier.icon}"></i>`;
+            bpBadgeTierEl.textContent = tier.label;
+            bpBadgeTierEl.style.color = tier.color;
+            bpBadgeTitleEl.textContent = tier.title;
+
+            bpResultEl.textContent = tier.msg;
         }
 
         bpButton.addEventListener('click', () => {
@@ -1244,6 +1402,139 @@
             bpCount += 1;
             bpCountEl.textContent = bpCount;
         });
+
+        // ============ SPEED QUIZ ============
+        const QUIZ_QUESTIONS = [
+            {
+                question: '전동재의 MBTI는?',
+                options: ['ESTJ', 'INFP', 'ENFJ', 'ISTP'],
+                answer: 'ESTJ'
+            },
+            {
+                question: '좋아하는 야구팀은?',
+                options: ['LG 트윈스', '두산 베어스', '롯데 자이언츠', '삼성 라이온즈'],
+                answer: '두산 베어스'
+            },
+            {
+                question: '취미는?',
+                options: ['독서', '게임', '잠자기', '그림그리기'],
+                answer: '잠자기'
+            }
+        ];
+        const QUIZ_TIME_LIMIT = 8; // seconds per question
+
+        const quizIntroEl = document.getElementById('quiz-intro');
+        const quizPlayingEl = document.getElementById('quiz-playing');
+        const quizResultEl = document.getElementById('quiz-result');
+        const quizStartBtn = document.getElementById('quiz-start');
+        const quizRetryBtn = document.getElementById('quiz-retry');
+        const quizProgressEl = document.getElementById('quiz-progress');
+        const quizTimerEl = document.getElementById('quiz-timer');
+        const quizTimerBarEl = document.getElementById('quiz-timer-bar');
+        const quizQuestionEl = document.getElementById('quiz-question');
+        const quizOptionsEl = document.getElementById('quiz-options');
+        const quizScoreEl = document.getElementById('quiz-score');
+        const quizScoreMsgEl = document.getElementById('quiz-score-msg');
+
+        let quizIndex = 0;
+        let quizScore = 0;
+        let quizTimerInterval = null;
+        let quizAnswered = false;
+
+        function quizShowState(state) {
+            quizIntroEl.classList.toggle('hidden', state !== 'intro');
+            quizPlayingEl.classList.toggle('hidden', state !== 'playing');
+            quizResultEl.classList.toggle('hidden', state !== 'result');
+        }
+
+        function quizStart() {
+            quizIndex = 0;
+            quizScore = 0;
+            quizShowState('playing');
+            quizLoadQuestion();
+        }
+
+        function quizLoadQuestion() {
+            quizAnswered = false;
+            const q = QUIZ_QUESTIONS[quizIndex];
+            quizProgressEl.textContent = `질문 ${quizIndex + 1} / ${QUIZ_QUESTIONS.length}`;
+            quizQuestionEl.textContent = q.question;
+            quizOptionsEl.innerHTML = '';
+
+            q.options.forEach((opt) => {
+                const btn = document.createElement('button');
+                btn.textContent = opt;
+                btn.className = 'quiz-option bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white text-sm font-semibold rounded-xl py-4 px-4 transition-colors duration-150';
+                btn.addEventListener('click', () => quizSelectAnswer(opt, btn));
+                quizOptionsEl.appendChild(btn);
+            });
+
+            let timeLeft = QUIZ_TIME_LIMIT;
+            quizTimerEl.textContent = `${timeLeft.toFixed(1)}s`;
+            quizTimerBarEl.style.transition = 'none';
+            quizTimerBarEl.style.width = '100%';
+            // force reflow so the next transition actually animates from 100%
+            void quizTimerBarEl.offsetWidth;
+            quizTimerBarEl.style.transition = `width ${QUIZ_TIME_LIMIT}s linear`;
+            quizTimerBarEl.style.width = '0%';
+
+            const startTime = Date.now();
+            clearInterval(quizTimerInterval);
+            quizTimerInterval = setInterval(() => {
+                const elapsed = (Date.now() - startTime) / 1000;
+                const remaining = Math.max(0, QUIZ_TIME_LIMIT - elapsed);
+                quizTimerEl.textContent = `${remaining.toFixed(1)}s`;
+                if (remaining <= 0) {
+                    quizSelectAnswer(null, null);
+                }
+            }, 100);
+        }
+
+        function quizSelectAnswer(selected, btnEl) {
+            if (quizAnswered) return;
+            quizAnswered = true;
+            clearInterval(quizTimerInterval);
+
+            const q = QUIZ_QUESTIONS[quizIndex];
+            const correct = selected === q.answer;
+            if (correct) quizScore += 1;
+
+            document.querySelectorAll('.quiz-option').forEach((btn) => {
+                btn.disabled = true;
+                if (btn.textContent === q.answer) {
+                    btn.classList.add('!bg-emerald-500/20', '!border-emerald-500', '!text-emerald-300');
+                } else if (btn === btnEl) {
+                    btn.classList.add('!bg-red-500/20', '!border-red-500', '!text-red-300');
+                }
+            });
+
+            setTimeout(() => {
+                quizIndex += 1;
+                if (quizIndex < QUIZ_QUESTIONS.length) {
+                    quizLoadQuestion();
+                } else {
+                    quizFinish();
+                }
+            }, 900);
+        }
+
+        function quizFinish() {
+            quizShowState('result');
+            quizScoreEl.textContent = `${quizScore} / ${QUIZ_QUESTIONS.length}`;
+
+            let msg;
+            if (quizScore === QUIZ_QUESTIONS.length) {
+                msg = '퍼펙트! 저를 진짜 잘 아시네요 🎉';
+            } else if (quizScore >= 1) {
+                msg = '오, 꽤 아시네요! 다시 도전해서 만점 노려보세요.';
+            } else {
+                msg = '다음엔 다 맞혀보세요! 힌트는 About 섹션에 있어요.';
+            }
+            quizScoreMsgEl.textContent = msg;
+        }
+
+        quizStartBtn.addEventListener('click', quizStart);
+        quizRetryBtn.addEventListener('click', quizStart);
     </script>
 </body>
 </html>
