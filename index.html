@@ -102,6 +102,25 @@
             .reveal { opacity: 1; transform: none; transition: none; }
         }
 
+        /* ============ TYPEWRITER TITLE ============ */
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 0.9em;
+            margin-left: 3px;
+            background-color: #60a5fa;
+            animation: blink-cursor 0.85s step-end infinite;
+            vertical-align: -0.1em;
+        }
+        .typing-cursor.done {
+            animation: none;
+            opacity: 0;
+        }
+        @keyframes blink-cursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
         /* ============ LIGHT MODE OVERRIDES ============ */
         html.light body {
             background-color: #f7f8fa;
@@ -290,9 +309,9 @@
                 
                 <!-- Fixed title from image_256947.png using break-keep and inline-block to prevent single letter orphans -->
                 <div class="space-y-4">
-                    <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-[1.12] text-white break-keep">
-                        전동재<br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-100 to-electric-400">꾸준함이 곧 실력</span>이 <span class="inline-block">되는 사람</span>
+                    <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-[1.12] text-white break-keep" id="hero-title">
+                        <span id="tw-1"></span><br>
+                        <span id="tw-2" class="text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-100 to-electric-400"></span><span id="tw-3"></span> <span id="tw-4" class="inline-block"></span><span class="typing-cursor" id="tw-cursor">&nbsp;</span>
                     </h1>
                 </div>
                 
@@ -1026,6 +1045,47 @@
         }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
 
         revealEls.forEach((el) => revealObserver.observe(el));
+
+        // ============ TYPEWRITER HERO TITLE ============
+        (function () {
+            const segments = [
+                { el: document.getElementById('tw-1'), text: '전동재' },
+                { el: document.getElementById('tw-2'), text: '꾸준함이 곧 실력' },
+                { el: document.getElementById('tw-3'), text: '이' },
+                { el: document.getElementById('tw-4'), text: '되는 사람' }
+            ];
+            const cursor = document.getElementById('tw-cursor');
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            if (prefersReducedMotion) {
+                segments.forEach((seg) => { seg.el.textContent = seg.text; });
+                cursor.classList.add('done');
+                return;
+            }
+
+            let segIndex = 0;
+            let charIndex = 0;
+            const typeSpeed = 90;
+
+            function typeStep() {
+                if (segIndex >= segments.length) {
+                    cursor.classList.add('done');
+                    return;
+                }
+                const current = segments[segIndex];
+                if (charIndex <= current.text.length) {
+                    current.el.textContent = current.text.slice(0, charIndex);
+                    charIndex++;
+                    setTimeout(typeStep, typeSpeed);
+                } else {
+                    segIndex++;
+                    charIndex = 0;
+                    setTimeout(typeStep, typeSpeed * 2);
+                }
+            }
+
+            setTimeout(typeStep, 400);
+        })();
 
         // ============ GUESTBOOK (localStorage, per-browser) ============
         const GB_KEY = 'dongjae-guestbook';
