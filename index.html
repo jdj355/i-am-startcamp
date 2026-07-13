@@ -242,6 +242,8 @@
                 <a href="#strengths" class="hover:text-electric-400 transition-colors duration-200">STRENGTHS</a>
                 <a href="#episodes" class="hover:text-electric-400 transition-colors duration-200">EPISODES</a>
                 <a href="#tastes" class="hover:text-electric-400 transition-colors duration-200">TASTES</a>
+                <a href="#guestbook" class="hover:text-electric-400 transition-colors duration-200">GUESTBOOK</a>
+                <a href="#minigame" class="hover:text-electric-400 transition-colors duration-200">PLAY</a>
                 <a href="#contact" class="hover:text-electric-400 transition-colors duration-200">CONTACT</a>
             </nav>
 
@@ -264,6 +266,8 @@
             <a href="#strengths" class="block text-sm text-zinc-200 hover:text-white font-medium">STRENGTHS</a>
             <a href="#episodes" class="block text-sm text-zinc-200 hover:text-white font-medium">EPISODES</a>
             <a href="#tastes" class="block text-sm text-zinc-200 hover:text-white font-medium">TASTES</a>
+            <a href="#guestbook" class="block text-sm text-zinc-200 hover:text-white font-medium">GUESTBOOK</a>
+            <a href="#minigame" class="block text-sm text-zinc-200 hover:text-white font-medium">PLAY</a>
             <a href="#contact" class="block text-sm text-zinc-200 hover:text-white font-medium">CONTACT</a>
         </div>
     </header>
@@ -708,6 +712,73 @@
         </div>
     </section>
 
+    <!-- GUESTBOOK SECTION -->
+    <section id="guestbook" class="py-32 bg-slate-900/20 border-t border-slate-900 relative">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16 break-keep reveal">
+                <span class="text-xs tracking-widest font-extrabold text-electric-400 uppercase bg-slate-900 border border-slate-800 px-4 py-1.5 rounded-full">GUESTBOOK</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-6">다녀간 흔적을 남겨주세요</h2>
+                <p class="text-zinc-300 mt-4 text-base">응원, 피드백, 아무 말이나 좋아요. 이 브라우저에 남겨두고 다음에 또 볼게요.</p>
+            </div>
+
+            <!-- Guestbook Form -->
+            <div class="reveal bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <input id="gb-name" type="text" maxlength="20" placeholder="이름 (닉네임 가능)"
+                        class="sm:col-span-1 bg-slate-800 border border-slate-700 text-white placeholder-zinc-500 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-electric-500 transition-colors" />
+                    <input id="gb-message" type="text" maxlength="140" placeholder="짧은 메시지를 남겨주세요"
+                        class="sm:col-span-2 bg-slate-800 border border-slate-700 text-white placeholder-zinc-500 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-electric-500 transition-colors" />
+                </div>
+                <div class="flex justify-end">
+                    <button id="gb-submit" class="px-6 py-3 bg-electric-500 hover:bg-electric-600 text-white font-bold text-sm rounded-lg transition-colors duration-200">
+                        <i class="fa-solid fa-pen mr-2"></i>남기기
+                    </button>
+                </div>
+                <p id="gb-error" class="hidden text-xs text-red-400">이름과 메시지를 모두 입력해주세요.</p>
+            </div>
+
+            <!-- Guestbook Entries -->
+            <div id="gb-list" class="mt-8 space-y-3"></div>
+            <p id="gb-empty" class="hidden text-center text-sm text-zinc-400 mt-8">아직 방명록이 비어있어요. 첫 메시지의 주인공이 되어보세요.</p>
+        </div>
+    </section>
+
+    <!-- MINI GAME SECTION -->
+    <section id="minigame" class="py-32 bg-slate-950 border-t border-slate-900 relative overflow-hidden">
+        <div class="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-electric-700/10 filter blur-[150px] pointer-events-none"></div>
+        <div class="max-w-2xl mx-auto px-6 relative z-10">
+            <div class="text-center max-w-2xl mx-auto mb-14 break-keep reveal">
+                <span class="text-xs tracking-widest font-extrabold text-electric-400 uppercase bg-slate-900 border border-slate-800 px-4 py-1.5 rounded-full">MINI GAME</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-6">10초 벤치프레스 챌린지</h2>
+                <p class="text-zinc-300 mt-4 text-base">10초 동안 버튼을 최대한 많이 눌러서 전동재만큼 끈기 있는지 테스트해보세요.</p>
+            </div>
+
+            <div class="reveal bg-slate-900 border border-slate-800 rounded-3xl p-8 sm:p-10 text-center space-y-8">
+                <div class="flex items-center justify-around">
+                    <div>
+                        <div class="text-xs text-zinc-400 font-mono uppercase tracking-widest mb-1">Time</div>
+                        <div id="bp-timer" class="text-3xl sm:text-4xl font-black text-white font-mono">10.0</div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-zinc-400 font-mono uppercase tracking-widest mb-1">Reps</div>
+                        <div id="bp-count" class="text-3xl sm:text-4xl font-black text-electric-400 font-mono">0</div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-zinc-400 font-mono uppercase tracking-widest mb-1">Best</div>
+                        <div id="bp-best" class="text-3xl sm:text-4xl font-black text-white font-mono">0</div>
+                    </div>
+                </div>
+
+                <button id="bp-button" class="w-40 h-40 sm:w-48 sm:h-48 mx-auto rounded-full bg-gradient-to-br from-electric-500 to-electric-700 text-white font-black text-lg shadow-2xl shadow-electric-500/30 flex flex-col items-center justify-center select-none transition-transform active:scale-95 hover:scale-[1.03]">
+                    <i class="fa-solid fa-dumbbell text-3xl mb-2"></i>
+                    <span id="bp-button-label">시작하기</span>
+                </button>
+
+                <p id="bp-result" class="text-sm text-zinc-300 min-h-[1.5rem]"></p>
+            </div>
+        </div>
+    </section>
+
     <!-- CONTACT SECTION -->
     <section id="contact" class="py-32 bg-slate-950 border-t border-slate-900 text-white relative overflow-hidden">
         <div class="absolute bottom-[-15%] left-1/2 -translate-x-1/2 w-[70%] h-[50%] rounded-full bg-electric-700/10 filter blur-[150px] pointer-events-none"></div>
@@ -955,6 +1026,164 @@
         }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
 
         revealEls.forEach((el) => revealObserver.observe(el));
+
+        // ============ GUESTBOOK (localStorage, per-browser) ============
+        const GB_KEY = 'dongjae-guestbook';
+        const gbList = document.getElementById('gb-list');
+        const gbEmpty = document.getElementById('gb-empty');
+        const gbNameInput = document.getElementById('gb-name');
+        const gbMessageInput = document.getElementById('gb-message');
+        const gbError = document.getElementById('gb-error');
+        const gbSubmit = document.getElementById('gb-submit');
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function loadGuestbook() {
+            try {
+                return JSON.parse(localStorage.getItem(GB_KEY) || '[]');
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function renderGuestbook() {
+            const entries = loadGuestbook();
+            gbList.innerHTML = '';
+
+            if (entries.length === 0) {
+                gbEmpty.classList.remove('hidden');
+                return;
+            }
+            gbEmpty.classList.add('hidden');
+
+            entries.slice().reverse().forEach((entry) => {
+                const card = document.createElement('div');
+                card.className = 'bg-slate-900 border border-slate-800 rounded-xl p-5 flex items-start justify-between gap-4';
+                card.innerHTML = `
+                    <div class="flex items-start space-x-4 min-w-0">
+                        <div class="w-10 h-10 shrink-0 rounded-full bg-electric-500/10 border border-electric-500/20 flex items-center justify-center text-electric-400 font-bold text-sm">
+                            ${escapeHtml(entry.name.slice(0, 1).toUpperCase())}
+                        </div>
+                        <div class="min-w-0 break-keep">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="text-sm font-bold text-white">${escapeHtml(entry.name)}</span>
+                                <span class="text-[11px] text-zinc-500 font-mono">${escapeHtml(entry.date)}</span>
+                            </div>
+                            <p class="text-sm text-zinc-300 mt-1 leading-relaxed break-all">${escapeHtml(entry.message)}</p>
+                        </div>
+                    </div>
+                `;
+                gbList.appendChild(card);
+            });
+        }
+
+        function submitGuestbook() {
+            const name = gbNameInput.value.trim();
+            const message = gbMessageInput.value.trim();
+
+            if (!name || !message) {
+                gbError.classList.remove('hidden');
+                return;
+            }
+            gbError.classList.add('hidden');
+
+            const entries = loadGuestbook();
+            entries.push({
+                name,
+                message,
+                date: new Date().toLocaleDateString('ko-KR', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
+            });
+            localStorage.setItem(GB_KEY, JSON.stringify(entries));
+
+            gbNameInput.value = '';
+            gbMessageInput.value = '';
+            renderGuestbook();
+            showToast('방명록 등록 완료', '따뜻한 한마디 감사합니다!');
+        }
+
+        gbSubmit.addEventListener('click', submitGuestbook);
+        gbMessageInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') submitGuestbook();
+        });
+        renderGuestbook();
+
+        // ============ MINI GAME: 10-SECOND BENCH PRESS CLICKER ============
+        const BP_BEST_KEY = 'dongjae-bp-best';
+        const bpButton = document.getElementById('bp-button');
+        const bpButtonLabel = document.getElementById('bp-button-label');
+        const bpTimerEl = document.getElementById('bp-timer');
+        const bpCountEl = document.getElementById('bp-count');
+        const bpBestEl = document.getElementById('bp-best');
+        const bpResultEl = document.getElementById('bp-result');
+
+        let bpState = 'idle'; // idle | playing | done
+        let bpCount = 0;
+        let bpTimeLeft = 10;
+        let bpTimerInterval = null;
+
+        function bpGetBest() {
+            return parseInt(localStorage.getItem(BP_BEST_KEY) || '0', 10);
+        }
+        bpBestEl.textContent = bpGetBest();
+
+        function bpRank(count) {
+            if (count < 15) return { label: '가벼운 워밍업', msg: '몸풀기로 나쁘지 않아요. 한 번 더 도전해볼까요?' };
+            if (count < 30) return { label: '루키', msg: '괜찮은 페이스예요. 조금만 더 밀어붙여 보세요!' };
+            if (count < 45) return { label: '베테랑', msg: '꽤 끈기 있으시네요. 4년차 헬스인의 기운이 느껴져요.' };
+            return { label: '전동재급 끈기', msg: '120kg 벤치프레스 각! 정말 끈질기시네요 🔥' };
+        }
+
+        function bpStart() {
+            if (bpState === 'playing') return;
+            bpState = 'playing';
+            bpCount = 0;
+            bpTimeLeft = 10;
+            bpCountEl.textContent = '0';
+            bpTimerEl.textContent = '10.0';
+            bpResultEl.textContent = '';
+            bpButtonLabel.textContent = 'PRESS!';
+
+            const startTime = Date.now();
+            bpTimerInterval = setInterval(() => {
+                const elapsed = (Date.now() - startTime) / 1000;
+                bpTimeLeft = Math.max(0, 10 - elapsed);
+                bpTimerEl.textContent = bpTimeLeft.toFixed(1);
+
+                if (bpTimeLeft <= 0) {
+                    bpEnd();
+                }
+            }, 50);
+        }
+
+        function bpEnd() {
+            clearInterval(bpTimerInterval);
+            bpState = 'done';
+            bpTimerEl.textContent = '0.0';
+            bpButtonLabel.textContent = '다시 도전';
+
+            const best = bpGetBest();
+            if (bpCount > best) {
+                localStorage.setItem(BP_BEST_KEY, String(bpCount));
+                bpBestEl.textContent = bpCount;
+            }
+
+            const rank = bpRank(bpCount);
+            bpResultEl.innerHTML = `<span class="text-electric-400 font-bold">${rank.label}</span> — ${rank.msg}`;
+        }
+
+        bpButton.addEventListener('click', () => {
+            if (bpState === 'idle' || bpState === 'done') {
+                bpStart();
+                return;
+            }
+            // playing state: each click is a rep
+            bpCount += 1;
+            bpCountEl.textContent = bpCount;
+        });
     </script>
 </body>
 </html>
